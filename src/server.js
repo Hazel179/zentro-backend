@@ -36,6 +36,8 @@ app.use(limiter);
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
+  'https://hazel179.github.io',
+  'https://hazel179.github.io/zentro-frontend',
   'https://zentro-client.vercel.app' // optional: add your deployed frontend domain
 ];
 
