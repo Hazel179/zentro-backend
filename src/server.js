@@ -72,6 +72,14 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/services', serviceRoutes);
 
+// Root route for health check or welcome message
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Welcome to the Zentro Consulting Platform API! For documentation, visit /api.'
+  });
+});
+
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
