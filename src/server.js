@@ -35,14 +35,17 @@ app.use(limiter);
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://localhost:3001',
-  'https://hazel179.github.io',
-  'https://hazel179.github.io/zentro-frontend',
-  'https://zentro-client.vercel.app' // optional: add your deployed frontend domain
+  'https://hazel179.github.io', // ✅ GitHub Pages domain
 ];
 
 app.use(cors({
-  origin: true, // Allow all origins for now
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -74,6 +77,10 @@ app.get('/', (req, res) => {
     success: true,
     message: 'Welcome to the Zentro Consulting Platform API! For documentation, visit /api.'
   });
+});
+
+app.get('/cors-check', (req, res) => {
+  res.json({ message: 'CORS is working!' });
 });
 
 // 404 handler
